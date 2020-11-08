@@ -1,0 +1,417 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=8" >
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
+    <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+    <title></title>
+    <script type="text/javascript">
+        $(function () {
+            var myarray = { "username": "51636763", "password": "password", "uuid": "5eaf634de3c80200", "version": "10", "manufacturer": "samsung", "platform": "Android", "model": "SM-A505F" };
+            console.log(JSON.stringify(myarray)); 
+        });
+        function empattendance(){
+        //EMPattendanceservice  string empcode,  string uuid, string longitude, string latitude
+            var myarray = { "empcode": "51623721", "uuid": "97a4b8e772d19b38", "longitude": "17.4471493", "latitude": "78.360201" };
+            $.ajax({
+                contentType: "application/json;",
+                data: JSON.stringify(myarray),
+                headers: { 'token': 'A850A73C-EE9E-454A-BEFD-2422828E2666', 'empcode': '51623721', 'uuid': '97a4b8e772d19b38' },
+                dataType: "JSON",
+                type: "POST",
+                url: "loginservice.asmx/EMPattendanceservice",
+                success: function (data) {
+                    var myval = data;
+                    console.log(data);
+                },
+                error: function (data) {
+                    var myval = data;
+                    if (myval == "401") {
+                    }
+                    else {
+                        document.getElementById('spndata').innerHTML = data.responseText;
+                    }
+                }
+            });
+        }
+
+        function mapsandmatchesservice() {
+            var myarray = { "block": "KATHAWAN", "gp": "AANT SAANT", "village": "ANTA" };
+            $.ajax({
+                contentType: "application/json;",
+                data: JSON.stringify(myarray),
+                headers: { 'token': '15A47594-DA73-49B3-8E50-CCB290194897', 'empcode': '51636763', 'uuid': '97a4b8e772d19b38' },
+                dataType: "JSON",
+                type: "POST",
+                url: "mapsandmatches.asmx/mapsandmatchesservice",
+                success: function (data) {
+                    var myval = data;
+                    console.log(data);
+                },
+                error: function (data) {
+                    var myval = data;
+                    if (myval == "401") {
+                    }
+                    else {
+                        document.getElementById('spndata').innerHTML = data.responseText;
+                    }
+                }
+            });
+        }
+
+
+        function empimeiclearservice() {
+        var myarray = { "empid": "dfgfgfg"};
+            $.ajax({
+                contentType: "application/json;",
+                data: "",
+                headers: { 'token': 'A850A73C-EE9E-454A-BEFD-2422828E2666', 'empcode': '51623721', 'uuid': '97a4b8e772d19b38' },
+                dataType: "json",
+                type: "POST",
+                url: "loginservice.asmx/ClearIMEIdetails",
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (err) {
+                    var myval = err;
+                    if (myval == "401") {
+                    }
+                    else {
+                        alert(err.responseText);
+                        document.getElementById('spndata').innerHTML = data.responseText;
+                    }
+                }
+            });
+        }
+        function emploginserviceclick() {
+            var myarray = { "username": "51636763", "password": "password", "uuid": "5eaf634de3c80200", "version": "10", "manufacturer": "samsung", "platform": "Android", "model": "SM-A505F" };
+            $.ajax({
+                contentType: "application/json;",
+                data: JSON.stringify(myarray),
+                dataType: "JSON",
+                type: "POST",
+                url: "loginservice.asmx/EMPloginservice",
+                success: function (data) {
+                    var myval = data;
+                    console.log(data);
+                },
+                error: function (data) {
+                    var myval = data;
+                    if (myval == "401") {
+                    }
+                    else {
+                        document.getElementById('spndata').innerHTML = data.responseText;
+                    }
+                }
+            });
+        }
+        function loadempworkitemdetails() {
+            var myarray = { "empid": "51636763", "lastsynced": "" };
+            $.ajax({
+                contentType: "application/json;",
+                data: JSON.stringify(myarray),
+                headers: { 'token': '39A60233-F358-4AC7-9471-112A97CFC91E', 'empcode': '51636763', 'uuid': 'c712ac676106316a' },
+                dataType: "JSON",
+                type: "POST",
+                url: "downloadservice.asmx/empworkitemdetails",
+                success: function (data) {
+                    var getalldtls = data[0].getalldtls;
+                    var getsinglevaldtls = data[0].getsinglevaldtls;
+                    var workitemsupdatedata = data[0].workitemsupdatedata;
+                    var closedworkitemsdata = data[0].closedworkitemsdata;
+                    document.getElementById('spndata').innerHTML = data[0].getalldtls + data[0].getsinglevaldtls + data[0].workitemsupdatedata + data[0].closedworkitemsdata;
+                    console.log(data);
+                },
+                error: function (data) {
+                    var myval = data;
+                    if (myval == "401") {
+                    }
+                    else {
+                        alert(data.responseText);
+                        document.getElementById('spndata').innerHTML = data.responseText;
+                    }
+                }
+            });
+        }
+
+        function benficiarydownloadsave() {
+            var myarray = { "workitemcode": "448", "surveyworkitemmappingcode": "719", "type": "MS", "empid": "51636763" };
+            $.ajax({
+                contentType: "application/json;",
+                data: JSON.stringify(myarray),
+                headers: { 'token': 'CBCE89E9-79C7-4691-8FAE-A066FBE8A1B8', 'empcode': '51636763', 'uuid': '5eaf634de3c80200' },
+                dataType: "JSON",
+                type: "POST",
+                url: "beneficiarydownload.asmx/benficiarydownloadsave",
+                success: function (data) {
+                    var myval = data;
+                    console.log(data);
+                },
+                error: function (data) {
+                    var myval = data;
+                    if (myval == "401") {
+                    }
+                    else {
+                        alert(data.responseText);
+                        document.getElementById('spndata').innerHTML = data.responseText;
+                    }
+                }
+            });
+        }
+
+        function benficiarystatusdownloadsave() {
+            var myarray = { "workitemcode": "440", "surveyworkitemmappingcode": "719", "type": "MS", "empid": "516869337" };
+            $.ajax({
+                contentType: "application/json;",
+                data: JSON.stringify(myarray),
+                headers: { 'token': 'CBCE89E9-79C7-4691-8FAE-A066FBE8A1B8', 'empcode': '51636763', 'uuid': '5eaf634de3c80200' },
+                dataType: "JSON",
+                type: "POST",
+                url: "beneficiarydownload.asmx/benficiarystatusdownloadsave",
+                success: function (data) {
+                    var myval = data;
+                    console.log(data);
+                },
+                error: function (data) {
+                    var myval = data;
+                    if (myval == "401") {
+                    }
+                    else {
+                        alert(data.responseText);
+                        document.getElementById('spndata').innerHTML = data.responseText;
+                    }
+                }
+            });
+        }
+
+        function loadvillages() {
+            var myarray = { "block": "05", "gp": "SN" };
+            $.ajax({
+                contentType: "application/json;",
+                data: JSON.stringify(myarray),
+                headers: { 'token': 'A3B31BD5-7CFA-469A-ACEB-2705B8048665', 'empcode': '51636763', 'uuid': '97a4b8e772d19b38' },
+                dataType: "JSON",
+                type: "POST",
+                url: "mapsandmatches.asmx/loadvillages",
+                success: function (data) {
+                    var myval = data;
+                    console.log(data);
+                },
+                error: function (data) {
+                    var myval = data;
+                    if (myval == "401") {
+                    }
+                    else {
+                        alert(data.responseText);
+                        document.getElementById('spndata').innerHTML = data.responseText;
+                    }
+                }
+            });
+        }
+        function loadgps() {
+            var myarray = { "block": "05" };
+            var jsonval = JSON.stringify(myarray);
+            $.ajax({
+                contentType: "application/json;",
+                data: JSON.stringify(myarray),
+                headers: { 'token': 'A3B31BD5-7CFA-469A-ACEB-2705B8048665', 'empcode': '51636763', 'uuid': '97a4b8e772d19b38' },
+                dataType: "JSON",
+                type: "POST",
+                url: "mapsandmatches.asmx/loadgps",
+                async: false,
+                success: function (data) {
+                    var myval = data;
+                    console.log(data);
+                },
+                error: function (data) {
+                    var myval = data;
+                    if (myval == "401") {
+                    }
+                    else {
+                        alert(data.responseText);
+                        document.getElementById('spndata').innerHTML = data.responseText;
+                    }
+                }
+            });
+        }
+
+        function loadblocks() {
+            $.ajax({
+                contentType: "application/json;",
+                data: "",
+                headers: { 'token': 'A3B31BD5-7CFA-469A-ACEB-2705B8048665', 'empcode': '51636763', 'uuid': '97a4b8e772d19b38' },
+                dataType: "JSON",
+                type: "POST",
+                url: "mapsandmatches.asmx/loadblocks",
+                success: function (data) {
+                    var myval = data;
+                    console.log(data);
+                },
+                error: function (data) {
+                    var myval = data;
+                    if (myval == "401") {
+                    }
+                    else {
+                        alert(data.responseText);
+                        document.getElementById('spndata').innerHTML = data.responseText;
+                    }
+                }
+            });
+        }
+
+
+        function saveBeneficiary() {
+            var myarray = { "empid": "51636763", "uuid": "234232gfggfdf", "workitemcode": "440", "selectedben": ["10003428", "10003429", null, "10003431"], "surveyworkitemmappingcode": "719" };
+            $.ajax({
+                contentType: "application/json;",
+                data: JSON.stringify(myarray),
+                headers: { 'token': 'CBCE89E9-79C7-4691-8FAE-A066FBE8A1B8', 'empcode': '51636763', 'uuid': '5eaf634de3c80200' },
+                dataType: "JSON",
+                type: "POST",
+                url: "beneficiarydownload.asmx/saveBeneficiary",
+                success: function (data) {
+                    var myval = data;
+                    console.log(data);
+                },
+                error: function (data) {
+                    var myval = data;
+                    if (myval == "401") {
+                    }
+                    else {
+                        alert(data.responseText);
+                        document.getElementById('spndata').innerHTML = data.responseText;
+                    }
+                }
+            });
+        }
+
+        function get_beneficiarylist() {
+            var blockarray = [];
+            var villagearray = [];
+            var gparray = [];
+            blockarray.push("BL0001");
+            gparray.push("GP0034");
+            villagearray.push("VL000001");
+            var myarray = { "empid": "51636763", "workitemcode": "440", "uuid": "5eaf634de3c80200", "blocks": blockarray, "villages": villagearray, "gps": gparray };
+            $.ajax({
+                contentType: "application/json;",
+                data: JSON.stringify(myarray),
+                headers: { 'token': '63BCB1AF-1184-4F12-B108-3FCEFCA8CF33', 'empcode': '51636763', 'uuid': '5eaf634de3c80200' },
+                dataType: "JSON",
+                type: "POST",
+                url: "beneficiarydownload.asmx/getbenficiarylist",
+                success: function (data) {
+                    var myval = data;
+                    console.log(data);
+                },
+                error: function (data) {
+                    var myval = data;
+                    if (myval == "401") {
+                    }
+                    else {
+                        alert(data.responseText);
+                        document.getElementById('spndata').innerHTML = data.responseText;
+                    }
+                }
+            });
+        }
+
+
+        function get_updatebeneficiary() {
+            updatebeneficiary = [];
+            var dataarr = [{ "workitemcode": "448", "surveyworkitemmappingcode": "721", "type": "BS", "frequency": [{ "surveyworkitemmappingcode": "719", "surveydate": "2019-01-24"}]}];
+            dataarr = JSON.stringify(dataarr);
+            var myarray = { "empid": "51623721", "updatedata": dataarr };
+            $.ajax({
+                contentType: "application/json;",
+                data: JSON.stringify(myarray),
+                headers: { 'token': '8916E630-20FD-419B-9F17-4AB60AA8B235', 'empcode': '51623721', 'uuid': 'c9ce6239486beeb8' },
+                dataType: "JSON",
+                type: "POST",
+                url: "statusservice.asmx/updatebeneficiarynew",
+                success: function (data) {
+                    var myval = data;
+                    console.log(data);
+                },
+                error: function (data) {
+                    var myval = data;
+                    if (myval == "401") {
+                    }
+                    else {
+                        alert(data.responseText);
+                        document.getElementById('spndata').innerHTML = data.responseText;
+                    }
+                }
+            });
+        }
+
+        function get_newformet() {
+            var myaraydata = { "empid": "51623721", "lastsynced": "", "parentresponse": "{\"0\":{\"empid\":\"51623721\", \"surveyworkitemmappingcode\":\"721\",\"respondentcode\":\"10038912\",\"parentquestion\":\"Q101\",\"questioncode\":\"Q101\",\"sectioncode\":\"1\",\"answer\":\"Naveennew\",\"surveydate\":\"2020-05-19\",\"status\":\"1\",\"createdon\":\"2020-04-19 06:13 AM\",\"UploadedFrom\":\"android\",\"syncedon\":null},\"1\":{\"empid\":\"51623721\", \"surveyworkitemmappingcode\":\"1735\",\"respondentcode\":\"10010225\",\"parentquestion\":\"Q102\",\"questioncode\":\"Q102\",\"sectioncode\":\"1\",\"answer\":\"\",\"surveydate\":\"2020-04-19\",\"status\":\"2\",\"createdon\":\"2020-04-19 06:13 AM\",\"UploadedFrom\":\"android\",\"syncedon\":null},\"2\":{\"empid\":\"51623721\", \"surveyworkitemmappingcode\":\"1735\",\"respondentcode\":\"10010225\",\"parentquestion\":\"Q103\",\"questioncode\":\"Q103\",\"sectioncode\":\"1\",\"answer\":\"\",\"surveydate\":\"2020-04-19\",\"status\":\"1\",\"createdon\":\"2020-04-19 06:13 AM\",\"UploadedFrom\":\"android\",\"syncedon\":null}}", "childresponse": "{}", "surveydata": "{\"0\":{\"surveyworkitemmappingcode\":\"721\",\"workitemcode\":\"448\"}}", "selectedben": "{\"0\":{\"surveyworkitemmappingcode\":\"721\",\"resondantcode\":\"51636760\"}}" }
+            var ip = JSON.stringify(myaraydata);
+            $.ajax({
+                contentType: "application/json;",
+                data: JSON.stringify(myaraydata),
+                headers: { 'token': 'F8FCE963-4F36-41AE-90B1-B2CC202CDA99', 'empcode': '51623721', 'uuid': 'c9ce6239486beeb8' },
+                dataType: "json",
+                type: "POST",
+                url: "uploadservice.asmx/sdnew",
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (err) {
+                    var myval = err;
+                    if (myval == "401") {
+                    }
+                    else {
+                        alert(err.responseText);
+                        document.getElementById('spndata').innerHTML = data.responseText;
+                    }
+                }
+            });
+        }
+        function emplogoutservice() {
+            $.ajax({
+                contentType: "application/json;",
+                data: "",
+                headers: { 'token': '2DFD2831-D5B2-4AF9-B6A0-F1330E7C1EC4', 'empcode': '51636763', 'uuid': '5eaf634de3c80200' },
+                dataType: "json",
+                type: "POST",
+                url: "loginservice.asmx/emplogoutservice",
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (err) {
+                    var myval = err;
+                    if (myval == "401") {
+                    }
+                    else {
+                        alert(err.responseText);
+                        document.getElementById('spndata').innerHTML = data.responseText;
+                    }
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <a href="#" onclick="emploginserviceclick();">EMPloginservice</a><br />
+        <a href="#" onclick="loadempworkitemdetails();">empworkitemdetails</a><br />
+        <a href="#" onclick="benficiarydownloadsave();">benficiarydownloadsave</a><br />
+        <a href="#" onclick="benficiarystatusdownloadsave();">benficiarystatusdownloadsave</a><br />
+        <a href="#" onclick="get_beneficiarylist();">getbenficiarylist</a><br />
+        <a href="#" onclick="loadblocks();">loadblocks</a><br />
+        <a href="#" onclick="loadgps();">loadgps</a><br />
+        <a href="#" onclick="loadvillages();">loadvillages</a><br />
+        <a href="#" onclick="saveBeneficiary();">saveBeneficiary</a><br />
+        <a href="#" onclick="get_updatebeneficiary();">updatebeneficiarynew</a><br />
+        <a href="#" onclick="get_newformet();">sdnew</a><br />
+        <a href="#" onclick="emplogoutservice();">emplogoutservice</a><br />
+        <a href="#" onclick="empattendance();">empattendance</a><br />
+        <a href="#" onclick="empimeiclearservice();">clear imei</a><br />
+        <a href="#" onclick="mapsandmatchesservice();">mapsandmatchesservice</a><br />
+        <span id="spndata"></span>
+    </div>
+</body>
+</html>
